@@ -1,10 +1,12 @@
 class GramsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
 
   def new
     @gram = Gram.new
   end
 
   def create
+    puts @gram 
     @gram = current_user.grams.create(gram_params)
     if @gram.valid?
       redirect_to root_path
